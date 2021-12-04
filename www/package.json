@@ -1,0 +1,34 @@
+{
+  "name": "ecosystem-sim-app",
+  "version": "0.1.0",
+  "description": "Webasm demo app for ecosystem sim",
+  "main": "index.js",
+  "bin": {
+    "ecosystem-sim-app": ".bin/ecosystem-sim-app.js"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "server": "webpack-dev-server",
+    "deploy": "gh-pages -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rustwasm/ecosystemsim.git"
+  },
+  "keywords": [
+    "webassembly",
+    "wasm",
+    "rust",
+    "webpack"
+  ],
+  "dependencies": {
+    "ecosystemsim": "file:../pkg",
+    "gh-pages": "^3.2.0"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^10.0.0",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.0",
+    "webpack-dev-server": "^4.6.0"
+  }
+}
