@@ -1,5 +1,12 @@
 # Ecosystem simulator
 
+Check it at: https://klangner.github.io/ecosystemsim/
+
+
+## Implemented scenarios
+
+* [x] - Celluar Automata
+
 ## Build the project
 
 ```

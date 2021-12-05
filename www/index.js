@@ -190,4 +190,4 @@ canvas.addEventListener("click", event => {
     drawGrid();
 });
 
-play();
+pause();
