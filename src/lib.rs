@@ -1,12 +1,10 @@
-extern crate cfg_if;
-extern crate wasm_bindgen;
-extern crate web_sys;
-
 mod utils;
 
 use std::fmt;
 use wasm_bindgen::prelude::*;
 use web_sys::console;
+use rand::prelude::*;
+
 
 pub struct Timer<'a> {
     name: &'a str,
@@ -126,6 +124,31 @@ impl Universe {
 /// Public methods, exported to JavaScript.
 #[wasm_bindgen]
 impl Universe {
+    
+    pub fn new(prob: f32, seed: u32) -> Universe {
+        utils::set_panic_hook();
+
+        let width = 128;
+        let height = 128;
+        let mut rng = StdRng::seed_from_u64(seed as u64);
+
+        let cells = (0..width * height)
+            .map(|_| {
+                if rng.next_u32() as f32 / (u32::MAX as f32) > prob {
+                    Cell::Alive
+                } else {
+                    Cell::Dead
+                }
+            })
+            .collect();
+
+        Universe {
+            width,
+            height,
+            cells,
+        }
+    }
+
     pub fn tick(&mut self) {
         // let _timer = Timer::new("Universe::tick");
 
@@ -159,29 +182,6 @@ impl Universe {
         }
 
         self.cells = next;
-    }
-
-    pub fn new() -> Universe {
-        utils::set_panic_hook();
-
-        let width = 128;
-        let height = 128;
-
-        let cells = (0..width * height)
-            .map(|i| {
-                if i % 2 == 0 || i % 7 == 0 {
-                    Cell::Alive
-                } else {
-                    Cell::Dead
-                }
-            })
-            .collect();
-
-        Universe {
-            width,
-            height,
-            cells,
-        }
     }
 
     pub fn width(&self) -> u32 {

@@ -9,7 +9,7 @@ const DEAD_COLOR = "#FFFFFF";
 const ALIVE_COLOR = "#000000";
 
 // Construct the universe, and get its width and height.
-const universe = Universe.new();
+const universe = Universe.new(0.5, get_seed());
 const width = universe.width();
 const height = universe.height();
 
@@ -20,6 +20,15 @@ canvas.height = (CELL_SIZE + 1) * height + 1;
 canvas.width = (CELL_SIZE + 1) * width + 1;
 
 const ctx = canvas.getContext('2d');
+
+// Take provided seed or generate new one
+function get_seed() {
+    var seed_text = document.getElementById("seed").value;
+    if (seed_text.length > 0) {
+        return Number(seed_text);
+    }
+    return Date.now();
+}
 
 const fps = new class {
     constructor() {
@@ -190,4 +199,5 @@ canvas.addEventListener("click", event => {
     drawGrid();
 });
 
+renderLoop();
 pause();
